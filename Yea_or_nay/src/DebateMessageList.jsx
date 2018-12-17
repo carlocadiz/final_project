@@ -5,8 +5,6 @@ import ProgressBar from './ProgressBar.jsx';
 
 function DebateMessageList ({messages, debateRoom,updateLiked, userState, debator1Liked,
                             debator2Liked, debator1Switch, debator2Switch, resultsTriggered}) {
-  // console.log('debateRoom:', debateRoom);
-  console.log("RESULTS TRIGGER", resultsTriggered)
   let debator1Points = debator1Liked + (debator1Switch * 3);
   let debator2Points = debator2Liked + (debator2Switch * 3);
   let progressValue = 0;
@@ -23,23 +21,19 @@ function DebateMessageList ({messages, debateRoom,updateLiked, userState, debato
     debatorNay = debateRoom.debator1;
   };
 
-  console.log("MESSAGES IN MESSAGE LIST ARE", messages)
-
   const messageList = messages.map(message => {
 
-    return(
-
+    return (
       <DebateRoomMessage key={message.id} message={message.content} messageId={message.id} username={message.username}
         room={debateRoom.name} debatorState={message.state} updateLiked={updateLiked} state={userState} flag={message.flag}
         debatorYea={debatorYea} debatorNay={debatorNay} debator1Stance={debateRoom.debator1Stance} liked={message.liked} resultsTriggered={resultsTriggered}/>
-      )
+    )
   });
 
   return (
-
     <div className="messages">
       <h4 className='debate-name'>{debateRoom.proposedDebate} </h4>
-      {debateRoom.name !== 'mainroom' ?  <ProgressBar value={progressValue} debatorYea={debatorYea} debatorNay={debatorNay}/> : ""}
+      <ProgressBar value={progressValue} debatorYea={debatorYea} debatorNay={debatorNay}/>
       <div className='container message-list clearfix'>
         {messageList}
       </div>
